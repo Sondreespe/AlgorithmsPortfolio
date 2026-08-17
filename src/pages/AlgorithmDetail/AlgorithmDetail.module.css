@@ -1,0 +1,253 @@
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  color: #4f8ef7;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  gap: 4px;
+  font-family: inherit;
+  transition: color 0.15s;
+  align-self: flex-start;
+}
+
+.backBtn:hover {
+  color: #3b7de8;
+}
+
+.headerMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.catBadge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: white;
+}
+
+.cat_Graph { background: #4f8ef7; }
+.cat_Greedy { background: #f7944f; }
+.catGreedy { background: #f7944f; }
+.cat_Divide___Conquer { background: #7c4ff7; }
+.cat_DP { background: #4fca7a; }
+
+.title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    order: -1;
+  }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sidebar {
+  position: sticky;
+  top: 24px;
+}
+
+.inputBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.randomizeBtn {
+  padding: 8px 16px;
+  background: #f1f5f9;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+
+.randomizeBtn:hover {
+  background: #e2e8f0;
+  border-color: #94a3b8;
+}
+
+.arrayControls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  flex: 1;
+}
+
+.arrayLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #475569;
+  font-weight: 500;
+}
+
+.arrayInput {
+  padding: 7px 10px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  color: #0f172a;
+  outline: none;
+  min-width: 180px;
+  transition: border-color 0.15s;
+}
+
+.arrayInput:focus {
+  border-color: #4f8ef7;
+}
+
+.targetInput {
+  min-width: 60px;
+  max-width: 80px;
+}
+
+.visualizerBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  background: white;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.stepDescription {
+  min-height: 48px;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #334155;
+  line-height: 1.55;
+}
+
+/* Preference tables */
+.prefSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.prefTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.prefTables {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.prefTable {
+  flex: 1;
+  min-width: 220px;
+}
+
+.prefTableTitle {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #64748b;
+  margin: 0 0 8px;
+}
+
+.table {
+  border-collapse: collapse;
+  font-size: 13px;
+  width: 100%;
+}
+
+.table thead th {
+  padding: 4px 10px;
+  color: #94a3b8;
+  font-weight: 600;
+  text-align: center;
+  font-size: 12px;
+}
+
+.th {
+  min-width: 32px;
+}
+
+.tdName {
+  padding: 5px 10px 5px 0;
+  font-weight: 700;
+  color: #334155;
+  white-space: nowrap;
+}
+
+.td {
+  padding: 5px 10px;
+  text-align: center;
+  color: #64748b;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.tdMatched {
+  background: #dcfce7;
+  color: #15803d;
+  font-weight: 700;
+}

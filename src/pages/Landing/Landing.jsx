@@ -59,7 +59,7 @@ export default function Landing() {
         <h2 className={styles.howToTitle}>Covered algorithms</h2>
         <div className={styles.algGrid}>
           {[
-            { name: 'Gale-Shapley Algorithm', cat: '', color: '#4f8ef7' },
+            { name: 'Gale-Shapley Algorithm', cat: 'Greedy', color: '#4f8ef7' },
 
           ].map((alg) => (
             <div key={alg.name} className={styles.algPill}>
