@@ -1,0 +1,161 @@
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 60px 24px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4f8ef7;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.title {
+  font-size: clamp(32px, 6vw, 52px);
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #475569;
+  margin: 0;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.description {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #64748b;
+  margin: 0;
+  max-width: 640px;
+}
+
+.ctaButton {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 14px 28px;
+  background: #4f8ef7;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 2px 8px rgba(79, 142, 247, 0.25);
+}
+
+.ctaButton:hover {
+  background: #3b7de8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(79, 142, 247, 0.35);
+}
+
+.howTo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.howToTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.howToList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.howToList li {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  font-size: 14.5px;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.bullet {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  background: #eff6ff;
+  color: #4f8ef7;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  margin-top: 1px;
+}
+
+.algorithms {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.algGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.algPill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+}
+
+.algDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.algName {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #0f172a;
+  flex: 1;
+}
+
+.algCat {
+  font-size: 11px;
+  color: #94a3b8;
+  white-space: nowrap;
+}
