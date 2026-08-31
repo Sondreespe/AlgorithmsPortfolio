@@ -1,6 +1,5 @@
 import { generateGSSteps, DEFAULT_GS_INPUT, randomizeGSInput } from './gsMatching.js';
-
-export { DEFAULT_GS_INPUT, randomizeGSInput };
+import { generateCSSteps, DEFAULT_CS_INPUT, randomizeCSInput } from './coordinateSearch.js';
 
 export const ALGORITHMS = [
   {
@@ -38,5 +37,41 @@ export const ALGORITHMS = [
     visualizerType: 'bipartite',
     defaultInput: DEFAULT_GS_INPUT,
     generateSteps: (input) => generateGSSteps(input || DEFAULT_GS_INPUT),
+    randomize: () => randomizeGSInput(4),
+  },
+  {
+    id: 'coordinate-search',
+    name: 'Coordinate Search',
+    course: 'INF379',
+    category: 'Optimization',
+    description: 'Minimizes a function by probing axis-aligned moves and halving the step size when no improvement is found.',
+    complexity: {
+      time: { worst: 'O(d · iterations)' },
+      space: 'O(iterations)',
+    },
+    pseudocode: `CoordinateSearch(f, x₀, step):
+  x ← x₀
+
+  while step ≥ ε:
+    best ← x
+    bestVal ← f(x)
+
+    for each axis direction d:
+      candidate ← x + step · d
+      if f(candidate) < bestVal:
+        bestVal ← f(candidate)
+        best ← candidate
+
+    if best ≠ x:
+      x ← best        // move to best neighbor
+    else:
+      step ← step / 2  // no improvement: reduce step
+
+  return x`,
+    explanation: `Coordinate Search (also called Pattern Search) minimizes a function by testing small moves along each coordinate axis. At each iteration it picks the best neighboring point; if no neighbor improves the objective it halves the step size. The algorithm converges when the step size falls below a threshold. It requires no gradient information, making it suitable for non-differentiable or black-box functions.`,
+    visualizerType: 'contour',
+    defaultInput: DEFAULT_CS_INPUT,
+    generateSteps: (input) => generateCSSteps(input || DEFAULT_CS_INPUT),
+    randomize: () => randomizeCSInput(),
   },
 ];

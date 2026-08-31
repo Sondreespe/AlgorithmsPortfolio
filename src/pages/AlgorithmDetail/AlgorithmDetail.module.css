@@ -50,11 +50,24 @@
   color: white;
 }
 
+.coursePill {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: #f1f5f9;
+  color: #475569;
+  border: 1.5px solid #e2e8f0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 .cat_Graph { background: #4f8ef7; }
 .cat_Greedy { background: #f7944f; }
 .catGreedy { background: #f7944f; }
 .cat_Divide___Conquer { background: #7c4ff7; }
 .cat_DP { background: #4fca7a; }
+.cat_Optimization { background: #0d9488; }
 
 .title {
   font-size: 26px;

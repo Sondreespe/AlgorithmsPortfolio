@@ -2,9 +2,10 @@ import { useState, useMemo, useCallback } from 'react';
 import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import styles from './AlgorithmDetail.module.css';
 
-import { ALGORITHMS, DEFAULT_GS_INPUT, randomizeGSInput } from '../../algorithms/registry.js';
+import { ALGORITHMS } from '../../algorithms/registry.js';
 import { useAlgorithmPlayer } from '../../hooks/useAlgorithmPlayer.js';
 import BipartiteVisualizer from '../../visualizers/BipartiteVisualizer.jsx';
+import ContourVisualizer from '../../visualizers/ContourVisualizer.jsx';
 import StepControls from '../../components/StepControls/StepControls.jsx';
 import InfoPanel from '../../components/InfoPanel/InfoPanel.jsx';
 
@@ -24,10 +25,10 @@ function AlgorithmDetailInner({ algorithm }) {
   const { stepIndex, totalSteps, currentStep, isPlaying, onNext, onPrev, onReset, onPlay, onPause } = player;
 
   const handleRandomize = useCallback(() => {
-    setInput(randomizeGSInput(input.proposers.length));
-  }, [input.proposers.length]);
+    setInput(algorithm.randomize());
+  }, [algorithm]);
 
-  const { proposers, acceptors, proposerPrefs, acceptorPrefs } = input;
+  const catKey = `cat_${algorithm.category.replace(/ & | /g, '_')}`;
 
   return (
     <div className={styles.page}>
@@ -36,9 +37,10 @@ function AlgorithmDetailInner({ algorithm }) {
           &larr; Back
         </button>
         <div className={styles.headerMeta}>
-          <span className={`${styles.catBadge} ${styles.catGreedy}`}>
+          <span className={`${styles.catBadge} ${styles[catKey]}`}>
             {algorithm.category}
           </span>
+          <span className={styles.coursePill}>{algorithm.course}</span>
           <h1 className={styles.title}>{algorithm.name}</h1>
         </div>
       </div>
@@ -52,7 +54,12 @@ function AlgorithmDetailInner({ algorithm }) {
           </div>
 
           <div className={styles.visualizerBox}>
-            <BipartiteVisualizer input={input} stepState={currentStep} />
+            {algorithm.visualizerType === 'bipartite' && (
+              <BipartiteVisualizer input={input} stepState={currentStep} />
+            )}
+            {algorithm.visualizerType === 'contour' && (
+              <ContourVisualizer input={input} stepState={currentStep} />
+            )}
           </div>
 
           <div className={styles.stepDescription}>
@@ -70,27 +77,29 @@ function AlgorithmDetailInner({ algorithm }) {
             totalSteps={totalSteps}
           />
 
-          <div className={styles.prefSection}>
-            <h3 className={styles.prefTitle}>Preference Lists</h3>
-            <div className={styles.prefTables}>
-              <PreferenceTable
-                label="Proposers"
-                members={proposers}
-                others={acceptors}
-                prefs={proposerPrefs}
-                currentStep={currentStep}
-                side="proposer"
-              />
-              <PreferenceTable
-                label="Acceptors"
-                members={acceptors}
-                others={proposers}
-                prefs={acceptorPrefs}
-                currentStep={currentStep}
-                side="acceptor"
-              />
+          {algorithm.visualizerType === 'bipartite' && (
+            <div className={styles.prefSection}>
+              <h3 className={styles.prefTitle}>Preference Lists</h3>
+              <div className={styles.prefTables}>
+                <PreferenceTable
+                  label="Proposers"
+                  members={input.proposers}
+                  others={input.acceptors}
+                  prefs={input.proposerPrefs}
+                  currentStep={currentStep}
+                  side="proposer"
+                />
+                <PreferenceTable
+                  label="Acceptors"
+                  members={input.acceptors}
+                  others={input.proposers}
+                  prefs={input.acceptorPrefs}
+                  currentStep={currentStep}
+                  side="acceptor"
+                />
+              </div>
             </div>
-          </div>
+          )}
         </main>
 
         <aside className={styles.sidebar}>

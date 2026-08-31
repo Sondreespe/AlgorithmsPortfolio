@@ -5,6 +5,7 @@ const CATEGORY_CLASS = {
   Greedy: 'categoryGreedy',
   'Divide & Conquer': 'categoryDivide',
   DP: 'categoryDP',
+  Optimization: 'categoryOptimization',
 };
 
 export default function AlgorithmCard({ algorithm, onClick }) {

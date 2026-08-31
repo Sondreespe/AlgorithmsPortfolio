@@ -6,7 +6,7 @@ import AlgorithmCard from '../../components/AlgorithmCard/AlgorithmCard.jsx';
 import SearchFilter from '../../components/SearchFilter/SearchFilter.jsx';
 
 const ALL_COURSES = ['All', 'INF234', 'INF379'];
-const ALL_CATEGORIES = ['All', 'Graph', 'Divide & Conquer', 'Greedy', 'DP'];
+const ALL_CATEGORIES = ['All', 'Graph', 'Divide & Conquer', 'Greedy', 'DP', 'Optimization'];
 
 export default function Overview() {
   const navigate = useNavigate();
