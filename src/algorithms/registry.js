@@ -6,6 +6,7 @@ export const ALGORITHMS = [
   {
     id: 'gale-shapley',
     name: 'Gale-Shapley (Stable Matching)',
+    course: 'INF234',
     category: 'Greedy',
     description: 'Finds a stable matching between two equal-sized groups using a propose-and-reject strategy.',
     complexity: {
