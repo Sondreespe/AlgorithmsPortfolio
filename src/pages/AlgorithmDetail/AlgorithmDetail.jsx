@@ -6,6 +6,7 @@ import { ALGORITHMS } from '../../algorithms/registry.js';
 import { useAlgorithmPlayer } from '../../hooks/useAlgorithmPlayer.js';
 import BipartiteVisualizer from '../../visualizers/BipartiteVisualizer.jsx';
 import ContourVisualizer from '../../visualizers/ContourVisualizer.jsx';
+import GraphVisualizer from '../../visualizers/GraphVisualizer.jsx';
 import StepControls from '../../components/StepControls/StepControls.jsx';
 import InfoPanel from '../../components/InfoPanel/InfoPanel.jsx';
 
@@ -54,6 +55,14 @@ function AlgorithmDetailInner({ algorithm }) {
           </div>
 
           <div className={styles.visualizerBox}>
+            {algorithm.visualizerType === 'graph' && (
+              <GraphVisualizer
+                nodes={input.nodes}
+                edges={input.edges}
+                positions={input.positions}
+                stepState={currentStep}
+              />
+            )}
             {algorithm.visualizerType === 'bipartite' && (
               <BipartiteVisualizer input={input} stepState={currentStep} />
             )}

@@ -1,7 +1,35 @@
 import { generateGSSteps, DEFAULT_GS_INPUT, randomizeGSInput } from './gsMatching.js';
 import { generateCSSteps, DEFAULT_CS_INPUT, randomizeCSInput } from './coordinateSearch.js';
+import { generateBFSSteps, DEFAULT_BFS_GRAPH, randomizeBFSGraph } from './bfs.js';
 
 export const ALGORITHMS = [
+  {
+    id: 'bfs',
+    name: 'Breadth-First Search',
+    course: 'INF234',
+    category: 'Graph',
+    description: 'Explores a graph level by level using a queue, visiting all neighbors before going deeper.',
+    complexity: {
+      time: { worst: 'O(V + E)' },
+      space: 'O(V)',
+    },
+    pseudocode: `BFS(graph, start):
+  visited ← {start}
+  queue  ← [start]
+
+  while queue is not empty:
+    u ← queue.dequeue()
+
+    for each neighbor v of u:
+      if v not in visited:
+        visited.add(v)
+        queue.enqueue(v)`,
+    explanation: `BFS explores a graph layer by layer. It uses a FIFO queue: each dequeued node's unvisited neighbors are marked visited and enqueued. This guarantees that nodes are first reached via the shortest path (fewest edges). BFS is the basis for shortest-path algorithms and level-order traversals. Time complexity is O(V + E) since each vertex and edge is processed at most once.`,
+    visualizerType: 'graph',
+    defaultInput: DEFAULT_BFS_GRAPH,
+    generateSteps: (input) => generateBFSSteps(input || DEFAULT_BFS_GRAPH),
+    randomize: () => randomizeBFSGraph(),
+  },
   {
     id: 'gale-shapley',
     name: 'Gale-Shapley (Stable Matching)',
