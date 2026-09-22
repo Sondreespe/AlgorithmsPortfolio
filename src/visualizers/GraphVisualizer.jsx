@@ -8,6 +8,13 @@ export const BFS_LEGEND = [
   { color: '#22c55e', label: 'Visited' },
 ];
 
+export const DFS_LEGEND = [
+  { color: '#9ca3af', label: 'Unvisited' },
+  { color: '#fbbf24', label: 'In stack / examining' },
+  { color: '#3b82f6', label: 'Current' },
+  { color: '#22c55e', label: 'Visited' },
+];
+
 function getNodeColor(nodeId, stepState) {
   if (!stepState) return '#9ca3af';
   const { visited, queue, current, examining } = stepState;

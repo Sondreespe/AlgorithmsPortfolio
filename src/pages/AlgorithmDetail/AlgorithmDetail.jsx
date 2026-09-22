@@ -7,6 +7,9 @@ import { useAlgorithmPlayer } from '../../hooks/useAlgorithmPlayer.js';
 import BipartiteVisualizer from '../../visualizers/BipartiteVisualizer.jsx';
 import ContourVisualizer from '../../visualizers/ContourVisualizer.jsx';
 import GraphVisualizer from '../../visualizers/GraphVisualizer.jsx';
+import GradientDescentVisualizer from '../../visualizers/GradientDescentVisualizer.jsx';
+import NewtonsMethodVisualizer from '../../visualizers/NewtonsMethodVisualizer.jsx';
+import WeightedGraphVisualizer from '../../visualizers/WeightedGraphVisualizer.jsx';
 import StepControls from '../../components/StepControls/StepControls.jsx';
 import InfoPanel from '../../components/InfoPanel/InfoPanel.jsx';
 
@@ -61,6 +64,7 @@ function AlgorithmDetailInner({ algorithm }) {
                 edges={input.edges}
                 positions={input.positions}
                 stepState={currentStep}
+                legend={algorithm.legend}
               />
             )}
             {algorithm.visualizerType === 'bipartite' && (
@@ -68,6 +72,21 @@ function AlgorithmDetailInner({ algorithm }) {
             )}
             {algorithm.visualizerType === 'contour' && (
               <ContourVisualizer input={input} stepState={currentStep} />
+            )}
+            {algorithm.visualizerType === 'gradient-descent' && (
+              <GradientDescentVisualizer input={input} stepState={currentStep} />
+            )}
+            {algorithm.visualizerType === 'newtons-method' && (
+              <NewtonsMethodVisualizer input={input} stepState={currentStep} />
+            )}
+            {algorithm.visualizerType === 'weighted-graph' && (
+              <WeightedGraphVisualizer
+                nodes={input.nodes}
+                edges={input.edges}
+                positions={input.positions}
+                stepState={currentStep}
+                legend={algorithm.legend}
+              />
             )}
           </div>
 
