@@ -7,6 +7,7 @@ import { generateKruskalSteps, DEFAULT_KRUSKAL_GRAPH, randomizeKruskalGraph } fr
 import { generatePrimSteps, DEFAULT_PRIM_GRAPH, randomizePrimGraph } from './prim.js';
 import { generateGDSteps, DEFAULT_GD_INPUT, randomizeGDInput } from './gradientDescent.js';
 import { generateNMSteps, DEFAULT_NM_INPUT, randomizeNMInput } from './newtonsMethod.js';
+import { generateUFSteps, DEFAULT_UF_INPUT, randomizeUFInput } from './unionFind.js';
 import { DFS_LEGEND } from '../visualizers/GraphVisualizer.jsx';
 import { DIJKSTRA_LEGEND, KRUSKAL_LEGEND, PRIM_LEGEND } from '../visualizers/WeightedGraphVisualizer.jsx';
 
@@ -95,6 +96,34 @@ export const ALGORITHMS = [
     defaultInput: DEFAULT_DIJKSTRA_GRAPH,
     generateSteps: (input) => generateDijkstraSteps(input || DEFAULT_DIJKSTRA_GRAPH),
     randomize: () => randomizeDijkstraGraph(),
+  },
+  {
+    id: 'union-find',
+    name: 'Union-Find (Disjoint Sets)',
+    course: 'INF234',
+    category: 'Graph',
+    description: 'A data structure that tracks disjoint sets with near-constant-time union and find operations, using union by rank and path compression.',
+    complexity: {
+      time: { worst: 'O(α(n)) per operation' },
+      space: 'O(n)',
+    },
+    pseudocode: `find(x):                       union(a, b):
+  if parent[x] ≠ x:              ra ← find(a)
+    parent[x] ← find(parent[x]) rb ← find(b)
+  return parent[x]               if ra = rb: return
+  // path compression             if rank[ra] < rank[rb]:
+                                     parent[ra] ← rb
+                                   elif rank[ra] > rank[rb]:
+                                     parent[rb] ← ra
+                                   else:
+                                     parent[rb] ← ra
+                                     rank[ra]++
+                                   // union by rank`,
+    explanation: `Union-Find (Disjoint Set Union) maintains a partition of n elements into disjoint sets. Each set is represented as a tree with a root. \n\nfind(x) walks up the tree to the root, applying path compression: every node on the path is redirected to point directly at the root. This flattens the tree for future queries.\n\nunion(a, b) finds both roots, then merges the smaller-ranked tree under the larger-ranked one (union by rank). Equal ranks increment the new root's rank.\n\nTogether, path compression and union by rank give an amortized cost of O(α(n)) per operation, where α is the inverse Ackermann function — effectively constant for all practical n. This makes Union-Find the key component in Kruskal's MST algorithm.`,
+    visualizerType: 'union-find',
+    defaultInput: DEFAULT_UF_INPUT,
+    generateSteps: (input) => generateUFSteps(input || DEFAULT_UF_INPUT),
+    randomize: () => randomizeUFInput(),
   },
   {
     id: 'kruskal',

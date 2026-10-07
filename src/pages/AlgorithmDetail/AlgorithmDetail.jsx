@@ -10,6 +10,7 @@ import GraphVisualizer from '../../visualizers/GraphVisualizer.jsx';
 import GradientDescentVisualizer from '../../visualizers/GradientDescentVisualizer.jsx';
 import NewtonsMethodVisualizer from '../../visualizers/NewtonsMethodVisualizer.jsx';
 import WeightedGraphVisualizer from '../../visualizers/WeightedGraphVisualizer.jsx';
+import UnionFindVisualizer from '../../visualizers/UnionFindVisualizer.jsx';
 import StepControls from '../../components/StepControls/StepControls.jsx';
 import InfoPanel from '../../components/InfoPanel/InfoPanel.jsx';
 
@@ -78,6 +79,9 @@ function AlgorithmDetailInner({ algorithm }) {
             )}
             {algorithm.visualizerType === 'newtons-method' && (
               <NewtonsMethodVisualizer input={input} stepState={currentStep} />
+            )}
+            {algorithm.visualizerType === 'union-find' && (
+              <UnionFindVisualizer input={input} stepState={currentStep} />
             )}
             {algorithm.visualizerType === 'weighted-graph' && (
               <WeightedGraphVisualizer
