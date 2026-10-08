@@ -11,6 +11,7 @@ import GradientDescentVisualizer from '../../visualizers/GradientDescentVisualiz
 import NewtonsMethodVisualizer from '../../visualizers/NewtonsMethodVisualizer.jsx';
 import WeightedGraphVisualizer from '../../visualizers/WeightedGraphVisualizer.jsx';
 import UnionFindVisualizer from '../../visualizers/UnionFindVisualizer.jsx';
+import ClosestPairVisualizer from '../../visualizers/ClosestPairVisualizer.jsx';
 import StepControls from '../../components/StepControls/StepControls.jsx';
 import InfoPanel from '../../components/InfoPanel/InfoPanel.jsx';
 
@@ -82,6 +83,9 @@ function AlgorithmDetailInner({ algorithm }) {
             )}
             {algorithm.visualizerType === 'union-find' && (
               <UnionFindVisualizer input={input} stepState={currentStep} />
+            )}
+            {algorithm.visualizerType === 'closest-pair' && (
+              <ClosestPairVisualizer input={input} stepState={currentStep} />
             )}
             {algorithm.visualizerType === 'weighted-graph' && (
               <WeightedGraphVisualizer

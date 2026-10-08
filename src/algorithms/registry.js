@@ -8,6 +8,7 @@ import { generatePrimSteps, DEFAULT_PRIM_GRAPH, randomizePrimGraph } from './pri
 import { generateGDSteps, DEFAULT_GD_INPUT, randomizeGDInput } from './gradientDescent.js';
 import { generateNMSteps, DEFAULT_NM_INPUT, randomizeNMInput } from './newtonsMethod.js';
 import { generateUFSteps, DEFAULT_UF_INPUT, randomizeUFInput } from './unionFind.js';
+import { generateCPSteps, DEFAULT_CP_INPUT, randomizeCPInput } from './closestPair.js';
 import { DFS_LEGEND } from '../visualizers/GraphVisualizer.jsx';
 import { DIJKSTRA_LEGEND, KRUSKAL_LEGEND, PRIM_LEGEND } from '../visualizers/WeightedGraphVisualizer.jsx';
 
@@ -124,6 +125,42 @@ export const ALGORITHMS = [
     defaultInput: DEFAULT_UF_INPUT,
     generateSteps: (input) => generateUFSteps(input || DEFAULT_UF_INPUT),
     randomize: () => randomizeUFInput(),
+  },
+  {
+    id: 'closest-pair',
+    name: 'Closest Pair of Points',
+    course: 'INF234',
+    category: 'Divide & Conquer',
+    description: 'Finds the two closest points in a set by recursively dividing the plane and checking a narrow strip around the divide line.',
+    complexity: {
+      time: { worst: 'O(n log² n)' },
+      space: 'O(n)',
+    },
+    pseudocode: `ClosestPair(pts):
+  sort pts by x
+  return solve(pts)
+
+solve(pts):
+  if |pts| ≤ 3: return bruteForce(pts)
+
+  mid ← |pts| / 2
+  δ_L ← solve(pts[0..mid])
+  δ_R ← solve(pts[mid+1..])
+  δ ← min(δ_L, δ_R)
+
+  strip ← {p ∈ pts : |p.x − pts[mid].x| < δ}
+  sort strip by y
+
+  for i in strip:
+    for j in strip[i+1..] while |strip[j].y − strip[i].y| < δ:
+      δ ← min(δ, dist(strip[i], strip[j]))
+
+  return δ`,
+    explanation: `Closest Pair of Points is a classic divide and conquer problem. The brute-force O(n²) check of all pairs is improved to O(n log n) by exploiting geometry.\n\nDivide: split the point set at the median x-coordinate into left and right halves.\n\nConquer: recursively find the closest pair in each half, giving δ = min(δ_left, δ_right).\n\nCombine: any pair crossing the divide line with distance < δ must lie in a strip of width 2δ around the divide line. After sorting strip points by y, each point needs to be compared with at most 7 others (a geometric argument shows no more than 8 points can fit in a δ × 2δ rectangle), giving O(n) combine time.\n\nTotal recurrence: T(n) = 2T(n/2) + O(n log n) → O(n log² n). With a presorted-by-y list, it can be reduced to O(n log n).`,
+    visualizerType: 'closest-pair',
+    defaultInput: DEFAULT_CP_INPUT,
+    generateSteps: (input) => generateCPSteps(input || DEFAULT_CP_INPUT),
+    randomize: () => randomizeCPInput(),
   },
   {
     id: 'kruskal',
