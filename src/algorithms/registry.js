@@ -12,6 +12,22 @@ import { generateCPSteps, DEFAULT_CP_INPUT, randomizeCPInput } from './closestPa
 import { DFS_LEGEND } from '../visualizers/GraphVisualizer.jsx';
 import { DIJKSTRA_LEGEND, KRUSKAL_LEGEND, PRIM_LEGEND } from '../visualizers/WeightedGraphVisualizer.jsx';
 import { generateKahnSteps, DEFAULT_KAHN_GRAPH, randomizeKahnGraph, KAHN_LEGEND } from './topologicalSort.js';
+import { generateCCSteps, DEFAULT_CC_GRAPH, randomizeCCGraph, CC_LEGEND } from './connectedComponents.js';
+import { generateBipartiteSteps, DEFAULT_BIPARTITE_GRAPH, randomizeBipartiteGraph, BIPARTITE_LEGEND } from './bipartiteCheck.js';
+import { generateBellmanFordSteps, DEFAULT_BELLMAN_FORD_GRAPH, randomizeBellmanFordGraph, BELLMAN_FORD_LEGEND } from './bellmanFord.js';
+import { generateDAGPathSteps, DEFAULT_DAG_GRAPH, randomizeDAGGraph, DAG_PATH_LEGEND } from './dagPath.js';
+import { generateBinarySearchSteps, DEFAULT_BS_INPUT, randomizeBSInput } from './binarySearch.js';
+import { generateMergeListsSteps, DEFAULT_MERGE_LISTS_INPUT, randomizeMergeListsInput } from './mergeSortedLists.js';
+import { generateMergeSortSteps, DEFAULT_MERGE_SORT_INPUT, randomizeMergeSortInput } from './mergeSort.js';
+import { generateTargetSumSteps, DEFAULT_TARGET_SUM_INPUT, randomizeTargetSumInput } from './targetSum.js';
+import { generateThreeSumSteps, DEFAULT_THREE_SUM_INPUT, randomizeThreeSumInput } from './threeSum.js';
+import { generateCoinChangeSteps, DEFAULT_COIN_CHANGE_INPUT, randomizeCoinChangeInput } from './coinChange.js';
+import { generateCountInversionsSteps, DEFAULT_COUNT_INVERSIONS_INPUT, randomizeCountInversionsInput } from './countInversions.js';
+import { generateIntervalSchedulingSteps, DEFAULT_INTERVAL_SCHEDULING_INPUT, randomizeIntervalSchedulingInput } from './intervalScheduling.js';
+import { generateIntervalPartitioningSteps, DEFAULT_INTERVAL_PARTITIONING_INPUT, randomizeIntervalPartitioningInput } from './intervalPartitioning.js';
+import { generateEDFSteps, DEFAULT_EDF_INPUT, randomizeEDFInput } from './edf.js';
+import { generateKnapsackSteps, DEFAULT_KNAPSACK_INPUT, randomizeKnapsackInput } from './knapsack.js';
+import { generateEditDistanceSteps, DEFAULT_EDIT_DISTANCE_INPUT, randomizeEditDistanceInput } from './editDistance.js';
 
 export const ALGORITHMS = [
   {
@@ -405,10 +421,11 @@ solve(pts):
 
   return comp  // number of components`,
     explanation: `A connected component is a maximal set of nodes that are mutually reachable via undirected edges. The algorithm iterates over all nodes; whenever it finds an unvisited node it launches a BFS (or DFS) that labels all reachable nodes as part of the same component. Because each node and edge is processed at most once, the total time is O(V + E). The number of times the outer loop initiates a new search equals the number of components.`,
-    visualizerType: 'none',
-    defaultInput: null,
-    generateSteps: () => [],
-    randomize: () => null,
+    visualizerType: 'graph',
+    legend: CC_LEGEND,
+    defaultInput: DEFAULT_CC_GRAPH,
+    generateSteps: (input) => generateCCSteps(input || DEFAULT_CC_GRAPH),
+    randomize: () => randomizeCCGraph(),
   },
 
   // ── Bipartiteness Test ─────────────────────────────────────────────────────
@@ -441,10 +458,11 @@ solve(pts):
 
   return true`,
     explanation: `A graph is bipartite if and only if it has no odd cycle. The 2-coloring algorithm runs BFS from each unvisited node: the source is colored RED, its neighbors BLUE, their neighbors RED, and so on. If we ever try to color a neighbor the same color as its parent we have found an odd cycle and the graph is not bipartite. All trees are bipartite. The key insight is that BFS alternates layers, and each edge must connect adjacent layers (opposite colors); a "back edge" within a layer signals an odd cycle.`,
-    visualizerType: 'none',
-    defaultInput: null,
-    generateSteps: () => [],
-    randomize: () => null,
+    visualizerType: 'graph',
+    legend: BIPARTITE_LEGEND,
+    defaultInput: DEFAULT_BIPARTITE_GRAPH,
+    generateSteps: (input) => generateBipartiteSteps(input || DEFAULT_BIPARTITE_GRAPH),
+    randomize: () => randomizeBipartiteGraph(),
   },
 
   // ── Strong Connectivity ────────────────────────────────────────────────────
@@ -507,10 +525,12 @@ LongestDAG(G, s):
       if dist[u] + w > dist[v]:
         dist[v] ← dist[u] + w`,
     explanation: `Because a DAG has no cycles, its nodes can be processed in topological order and each node's distance finalized before any of its successors are reached. For shortest paths, initialize the source distance to 0 and all others to ∞, then relax each outgoing edge. The longest path uses the same structure with −∞ initialization and max-relaxation. This O(V + E) approach beats Dijkstra (O((V+E) log V)) and works with negative edge weights, which Dijkstra does not. The algorithm is essentially DP: OPT(v) = min/max over predecessors u of (OPT(u) + w(u,v)).`,
-    visualizerType: 'none',
-    defaultInput: null,
-    generateSteps: () => [],
-    randomize: () => null,
+    visualizerType: 'weighted-graph',
+    legend: DAG_PATH_LEGEND,
+    directed: true,
+    defaultInput: DEFAULT_DAG_GRAPH,
+    generateSteps: (input) => generateDAGPathSteps(input || DEFAULT_DAG_GRAPH),
+    randomize: () => randomizeDAGGraph(),
   },
 
   // ── Bellman–Ford ──────────────────────────────────────────────────────────
@@ -539,10 +559,11 @@ LongestDAG(G, s):
 
   return dist`,
     explanation: `Bellman–Ford computes single-source shortest paths in graphs that may have negative edge weights (but no negative cycles on paths from the source). The key invariant: after i rounds of relaxation, dist[v] is the shortest path using at most i edges. Since any simple path in an n-node graph has at most n−1 edges, n−1 rounds suffice. The optional n-th round detects negative cycles: if any distance can still be improved, a negative cycle is reachable. The O(VE) time is worse than Dijkstra's O((V+E) log V), but Dijkstra fails with negative weights.`,
-    visualizerType: 'none',
-    defaultInput: null,
-    generateSteps: () => [],
-    randomize: () => null,
+    visualizerType: 'weighted-graph',
+    legend: BELLMAN_FORD_LEGEND,
+    defaultInput: DEFAULT_BELLMAN_FORD_GRAPH,
+    generateSteps: (input) => generateBellmanFordSteps(input || DEFAULT_BELLMAN_FORD_GRAPH),
+    randomize: () => randomizeBellmanFordGraph(),
   },
 
   // ── Negative Cycle Detection ───────────────────────────────────────────────
@@ -635,10 +656,10 @@ LongestDAG(G, s):
   if amount = 0: return count
   else: return "no solution"`,
     explanation: `The greedy coin-change strategy picks the largest denomination that fits, repeatedly, until the target is reached. This is optimal for canonical coin systems like US coins {25, 10, 5, 1}: a formal exchange argument shows any "better" solution can be transformed into the greedy one without increasing the count. However, the greedy approach fails for arbitrary coin systems. Classic counterexample: coins {4, 3, 1}, amount 6. Greedy picks 4+1+1 = 3 coins; optimal is 3+3 = 2 coins. For general coin systems, use dynamic programming.`,
-    visualizerType: 'none',
-    defaultInput: null,
-    generateSteps: () => [],
-    randomize: () => null,
+    visualizerType: 'array',
+    defaultInput: DEFAULT_COIN_CHANGE_INPUT,
+    generateSteps: (input) => generateCoinChangeSteps(input || DEFAULT_COIN_CHANGE_INPUT),
+    randomize: () => randomizeCoinChangeInput(),
   },
 
   // ── Interval Scheduling ───────────────────────────────────────────────────
@@ -664,10 +685,10 @@ LongestDAG(G, s):
 
   return selected`,
     explanation: `Interval Scheduling Maximization asks: given n jobs each with a start and finish time, select the maximum number of non-overlapping jobs. The greedy rule — always pick the compatible job that finishes earliest — is provably optimal via a "greedy stays ahead" argument: at every step, the greedy selection leaves at least as much remaining capacity as any other selection. After sorting by finish time (O(n log n)), the scan is O(n). Common wrong greedy rules: earliest start (a long early job blocks everything), shortest duration (misses the geometric structure), and fewest conflicts.`,
-    visualizerType: 'none',
-    defaultInput: null,
-    generateSteps: () => [],
-    randomize: () => null,
+    visualizerType: 'interval',
+    defaultInput: DEFAULT_INTERVAL_SCHEDULING_INPUT,
+    generateSteps: (input) => generateIntervalSchedulingSteps(input || DEFAULT_INTERVAL_SCHEDULING_INPUT),
+    randomize: () => randomizeIntervalSchedulingInput(),
   },
 
   // ── Interval Partitioning ─────────────────────────────────────────────────
@@ -694,10 +715,10 @@ LongestDAG(G, s):
 
   return pq.size   // = minimum machines needed`,
     explanation: `The minimum number of machines needed equals the maximum depth d — the maximum number of jobs simultaneously active at any point. The greedy algorithm achieves exactly d machines: process jobs by start time, and assign each to any free machine (earliest finish ≤ job start); if none is free, open a new machine. When a new machine is opened, all existing machines are occupied simultaneously with this job, so depth ≥ current machine count — which proves this machine is necessary. The priority queue makes this O(n log n).`,
-    visualizerType: 'none',
-    defaultInput: null,
-    generateSteps: () => [],
-    randomize: () => null,
+    visualizerType: 'interval',
+    defaultInput: DEFAULT_INTERVAL_PARTITIONING_INPUT,
+    generateSteps: (input) => generateIntervalPartitioningSteps(input || DEFAULT_INTERVAL_PARTITIONING_INPUT),
+    randomize: () => randomizeIntervalPartitioningInput(),
   },
 
   // ── Minimize Max Lateness (EDF) ───────────────────────────────────────────
@@ -723,10 +744,10 @@ LongestDAG(G, s):
 
   return max lateness over all jobs`,
     explanation: `Given n jobs with processing times t_j and deadlines d_j on a single machine, the goal is to minimize maximum lateness L_max = max(finish_j − d_j). Earliest Deadline First (EDF) is optimal. The proof uses an inversion argument: any schedule that is not EDF has two adjacent jobs i, j where d_i > d_j but i is scheduled first. Swapping them cannot increase the maximum lateness of this pair — formally, the lateness of the new j is at most the original lateness of i — and does not affect other jobs. By repeatedly eliminating inversions, any schedule can be transformed into EDF without increasing L_max.`,
-    visualizerType: 'none',
-    defaultInput: null,
-    generateSteps: () => [],
-    randomize: () => null,
+    visualizerType: 'interval',
+    defaultInput: DEFAULT_EDF_INPUT,
+    generateSteps: (input) => generateEDFSteps(input || DEFAULT_EDF_INPUT),
+    randomize: () => randomizeEDFInput(),
   },
 
   // ── Binary Search ─────────────────────────────────────────────────────────
@@ -752,10 +773,10 @@ LongestDAG(G, s):
 
   return "not found"`,
     explanation: `Binary search exploits the sorted order of an array to find a target in O(log n) time. At each step it checks the middle element: if it matches, we are done; if the target is larger, the left half is discarded; if smaller, the right half is discarded. Each comparison halves the remaining search space. The recurrence T(n) = T(n/2) + O(1) solves to O(log n) by the Master theorem. Binary search requires sorted input (or any structure with random access and a total order) and is the basis for lower/upper bound queries and binary search on the answer.`,
-    visualizerType: 'none',
-    defaultInput: null,
-    generateSteps: () => [],
-    randomize: () => null,
+    visualizerType: 'array',
+    defaultInput: DEFAULT_BS_INPUT,
+    generateSteps: (input) => generateBinarySearchSteps(input || DEFAULT_BS_INPUT),
+    randomize: () => randomizeBSInput(),
   },
 
   // ── Merge Two Sorted Lists ────────────────────────────────────────────────
@@ -783,10 +804,10 @@ LongestDAG(G, s):
   result += B[j..]
   return result`,
     explanation: `Merging two sorted lists uses two pointers, one into each list. At each step the smaller front element is appended to the result and its pointer advances. When one list is exhausted the remaining elements of the other (all ≥ the last appended element) are copied directly. The total work is proportional to the combined length: O(n). This is the combine step of merge sort. The reason merge sort achieves O(n log n) is that at each of the O(log n) levels of the recursion tree, the total merge work across all subproblems at that level is exactly n.`,
-    visualizerType: 'none',
-    defaultInput: null,
-    generateSteps: () => [],
-    randomize: () => null,
+    visualizerType: 'array',
+    defaultInput: DEFAULT_MERGE_LISTS_INPUT,
+    generateSteps: (input) => generateMergeListsSteps(input || DEFAULT_MERGE_LISTS_INPUT),
+    randomize: () => randomizeMergeListsInput(),
   },
 
   // ── Merge Sort ────────────────────────────────────────────────────────────
@@ -809,10 +830,10 @@ LongestDAG(G, s):
 
   return Merge(left, right)`,
     explanation: `Merge sort is the canonical divide-and-conquer sorting algorithm. Divide: split the array at the midpoint. Conquer: recursively sort each half. Combine: merge the two sorted halves using the linear-time merge procedure. The recurrence T(n) = 2T(n/2) + Θ(n) solves to Θ(n log n) by the Master theorem (case a = b^d: 2 = 2^1, so the balanced case). The key intuition for the recursion-tree analysis: at each of the log n levels, the total merge work across all subproblems at that level is exactly n. Merge sort requires O(n) auxiliary space and is stable, but is not in-place.`,
-    visualizerType: 'none',
-    defaultInput: null,
-    generateSteps: () => [],
-    randomize: () => null,
+    visualizerType: 'array',
+    defaultInput: DEFAULT_MERGE_SORT_INPUT,
+    generateSteps: (input) => generateMergeSortSteps(input || DEFAULT_MERGE_SORT_INPUT),
+    randomize: () => randomizeMergeSortInput(),
   },
 
   // ── Target Sum (Two Pointers) ─────────────────────────────────────────────
@@ -838,10 +859,10 @@ LongestDAG(G, s):
 
   return "no pair found"`,
     explanation: `Two-pointer scan finds a pair summing to T in a sorted array in O(n) time. The pointers start at opposite ends. If the sum is too small, we advance the left pointer to get a larger value; if too large, we retreat the right pointer. This greedy choice is correct: at each step the skipped element cannot be part of any valid pair with the other pointer. The algorithm reduces 3-Sum from O(n³) to O(n²): sort once in O(n log n), then run Target Sum with T = −a[i] for each i.`,
-    visualizerType: 'none',
-    defaultInput: null,
-    generateSteps: () => [],
-    randomize: () => null,
+    visualizerType: 'array',
+    defaultInput: DEFAULT_TARGET_SUM_INPUT,
+    generateSteps: (input) => generateTargetSumSteps(input || DEFAULT_TARGET_SUM_INPUT),
+    randomize: () => randomizeTargetSumInput(),
   },
 
   // ── 3-Sum ─────────────────────────────────────────────────────────────────
@@ -868,10 +889,10 @@ LongestDAG(G, s):
 
   return all triples found`,
     explanation: `3-Sum asks whether any three elements of an array sum to zero. The brute-force O(n³) check of all triples is reduced to O(n²) by sorting and using the two-pointer technique. For each index i, the problem reduces to finding a pair among the remaining elements that sums to −a[i] — exactly Target Sum, solvable in O(n) with two pointers. The sort is a one-time O(n log n) cost. No sub-quadratic algorithm is known for the general case; the O(n²) bound is conjectured to be tight.`,
-    visualizerType: 'none',
-    defaultInput: null,
-    generateSteps: () => [],
-    randomize: () => null,
+    visualizerType: 'array',
+    defaultInput: DEFAULT_THREE_SUM_INPUT,
+    generateSteps: (input) => generateThreeSumSteps(input || DEFAULT_THREE_SUM_INPUT),
+    randomize: () => randomizeThreeSumInput(),
   },
 
   // ── Master Theorem ────────────────────────────────────────────────────────
@@ -1002,10 +1023,10 @@ MergeCount(L, R):
       result.append(R[j]);  j++
   ... append remainders ...`,
     explanation: `An inversion is a pair (i, j) with i < j but a[i] > a[j] — it measures how "unsorted" an array is. The brute-force O(n²) count is reduced to O(n log n) by embedding a counter in merge sort. All inversions are either within the left half, within the right half, or "split" (one element from each half). Left and right inversions are counted recursively. Split inversions are counted during the merge: when an element from the right half is taken (smaller than the current left element), all remaining left elements form inversions with it, contributing |L| − i in one step. This adds O(n) work per level, giving O(n log n) total.`,
-    visualizerType: 'none',
-    defaultInput: null,
-    generateSteps: () => [],
-    randomize: () => null,
+    visualizerType: 'array',
+    defaultInput: DEFAULT_COUNT_INVERSIONS_INPUT,
+    generateSteps: (input) => generateCountInversionsSteps(input || DEFAULT_COUNT_INVERSIONS_INPUT),
+    randomize: () => randomizeCountInversionsInput(),
   },
 
   // ── DP Pattern (Fibonacci / Memoization) ──────────────────────────────────
@@ -1134,10 +1155,10 @@ FibDP(n):
 
   return OPT[n][W]`,
     explanation: `The 0/1 Knapsack problem: given n items each with weight w_j and value v_j, and capacity W, select items to maximize total value with no item used more than once. The DP subproblem OPT(j, w) = maximum value using items 1..j with capacity w. The recurrence: skip item j (OPT(j−1, w)) or take it if it fits (v_j + OPT(j−1, w − w_j)). The table has O(nW) entries, each O(1). The O(nW) complexity is pseudo-polynomial: the exponent depends on the magnitude of W, not its bit-length. The problem is NP-hard in general, so no polynomial algorithm is known. All greedy heuristics (by value, weight, or ratio) fail on some inputs.`,
-    visualizerType: 'none',
-    defaultInput: null,
-    generateSteps: () => [],
-    randomize: () => null,
+    visualizerType: 'dp-table',
+    defaultInput: DEFAULT_KNAPSACK_INPUT,
+    generateSteps: (input) => generateKnapsackSteps(input || DEFAULT_KNAPSACK_INPUT),
+    randomize: () => randomizeKnapsackInput(),
   },
 
   // ── Edit Distance ─────────────────────────────────────────────────────────
@@ -1169,10 +1190,10 @@ FibDP(n):
 
   return OPT[n][m]`,
     explanation: `Edit distance (Levenshtein distance) is the minimum number of single-character edits (insert, delete, substitute) to transform string S into string T. The DP subproblem OPT(i, j) = edit distance between S[1..i] and T[1..j]. If the last characters match, no edit is needed: OPT(i,j) = OPT(i−1,j−1). Otherwise, take the cheapest of three options: substitute (diagonal −1,−1), delete S[i] (from above −1,0), or insert T[j] (from left 0,−1). The table fills in O(nm) time. Space can be reduced to O(n+m) by keeping only two rows; Hirschberg's algorithm also recovers the alignment within that space bound.`,
-    visualizerType: 'none',
-    defaultInput: null,
-    generateSteps: () => [],
-    randomize: () => null,
+    visualizerType: 'dp-table',
+    defaultInput: DEFAULT_EDIT_DISTANCE_INPUT,
+    generateSteps: (input) => generateEditDistanceSteps(input || DEFAULT_EDIT_DISTANCE_INPUT),
+    randomize: () => randomizeEditDistanceInput(),
   },
 
   // ── Ford–Fulkerson ────────────────────────────────────────────────────────

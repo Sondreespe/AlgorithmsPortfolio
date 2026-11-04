@@ -1,0 +1,99 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 8px;
+  overflow-x: auto;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: 'Fira Mono', 'Courier New', monospace;
+}
+
+.table th {
+  background: #1e293b;
+  color: #64748b;
+  font-weight: 600;
+  padding: 4px 8px;
+  text-align: center;
+  border: 1px solid #334155;
+  min-width: 36px;
+}
+
+.table th.rowHeader {
+  text-align: right;
+  color: #94a3b8;
+  font-size: 11px;
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cell {
+  padding: 5px 8px;
+  text-align: center;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: #cbd5e1;
+  transition: background 0.15s;
+  min-width: 36px;
+}
+
+.cellRow {
+  background: #131f30;
+}
+
+.cellActive {
+  background: #3b82f6 !important;
+  color: #fff;
+  font-weight: 700;
+}
+
+.cellZero {
+  color: #334155;
+}
+
+.rowLabelCell {
+  padding: 5px 8px;
+  text-align: right;
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: #94a3b8;
+  font-size: 11px;
+  white-space: nowrap;
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.colHeader {
+  padding: 4px 8px;
+  text-align: center;
+  border: 1px solid #334155;
+  background: #1e293b;
+  color: #64748b;
+  font-weight: 600;
+  min-width: 36px;
+}
+
+.extra {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.extraLabel {
+  color: #64748b;
+  font-weight: 600;
+}
+
+.extraVal {
+  color: #e2e8f0;
+  font-weight: 700;
+}

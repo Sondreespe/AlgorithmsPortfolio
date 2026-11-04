@@ -12,6 +12,9 @@ import NewtonsMethodVisualizer from '../../visualizers/NewtonsMethodVisualizer.j
 import WeightedGraphVisualizer from '../../visualizers/WeightedGraphVisualizer.jsx';
 import UnionFindVisualizer from '../../visualizers/UnionFindVisualizer.jsx';
 import ClosestPairVisualizer from '../../visualizers/ClosestPairVisualizer.jsx';
+import ArrayVisualizer from '../../visualizers/ArrayVisualizer.jsx';
+import IntervalVisualizer from '../../visualizers/IntervalVisualizer.jsx';
+import DPTableVisualizer from '../../visualizers/DPTableVisualizer.jsx';
 import StepControls from '../../components/StepControls/StepControls.jsx';
 import InfoPanel from '../../components/InfoPanel/InfoPanel.jsx';
 
@@ -98,6 +101,15 @@ function AlgorithmDetailInner({ algorithm }) {
                 stepState={currentStep}
                 legend={algorithm.legend}
               />
+            )}
+            {algorithm.visualizerType === 'array' && (
+              <ArrayVisualizer stepState={currentStep} />
+            )}
+            {algorithm.visualizerType === 'interval' && (
+              <IntervalVisualizer stepState={currentStep} />
+            )}
+            {algorithm.visualizerType === 'dp-table' && (
+              <DPTableVisualizer stepState={currentStep} />
             )}
           </div>
 
