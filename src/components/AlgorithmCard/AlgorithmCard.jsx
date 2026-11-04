@@ -5,6 +5,7 @@ const CATEGORY_CLASS = {
   Greedy: 'categoryGreedy',
   'Divide & Conquer': 'categoryDivide',
   DP: 'categoryDP',
+  Flow: 'categoryFlow',
   Optimization: 'categoryOptimization',
 };
 

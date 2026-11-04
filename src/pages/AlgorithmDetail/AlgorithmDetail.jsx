@@ -35,6 +35,7 @@ function AlgorithmDetailInner({ algorithm }) {
   }, [algorithm]);
 
   const catKey = `cat_${algorithm.category.replace(/ & | /g, '_')}`;
+  const hasVisualizer = algorithm.visualizerType !== 'none';
 
   return (
     <div className={styles.page}>
@@ -51,7 +52,8 @@ function AlgorithmDetailInner({ algorithm }) {
         </div>
       </div>
 
-      <div className={styles.layout}>
+      <div className={`${styles.layout} ${!hasVisualizer ? styles.layoutNoViz : ''}`}>
+        {hasVisualizer && (
         <main className={styles.main}>
           <div className={styles.inputBar}>
             <button className={styles.randomizeBtn} onClick={handleRandomize}>
@@ -67,6 +69,7 @@ function AlgorithmDetailInner({ algorithm }) {
                 positions={input.positions}
                 stepState={currentStep}
                 legend={algorithm.legend}
+                directed={algorithm.directed}
               />
             )}
             {algorithm.visualizerType === 'bipartite' && (
@@ -137,6 +140,7 @@ function AlgorithmDetailInner({ algorithm }) {
             </div>
           )}
         </main>
+        )}
 
         <aside className={styles.sidebar}>
           <InfoPanel algorithm={algorithm} />

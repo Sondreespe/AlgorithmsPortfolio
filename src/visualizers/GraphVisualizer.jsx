@@ -25,7 +25,7 @@ function getNodeColor(nodeId, stepState) {
   return '#9ca3af';
 }
 
-export default function GraphVisualizer({ nodes, edges, positions, stepState, legend }) {
+export default function GraphVisualizer({ nodes, edges, positions, stepState, legend, directed }) {
   return (
     <div className={styles.wrapper}>
       <svg
@@ -33,11 +33,36 @@ export default function GraphVisualizer({ nodes, edges, positions, stepState, le
         className={styles.svg}
         aria-label="Graph visualization"
       >
+        {directed && (
+          <defs>
+            <marker id="arrowGray" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+              <polygon points="0 0, 8 3, 0 6" fill="#d1d5db" />
+            </marker>
+          </defs>
+        )}
         {/* Edges */}
         {edges.map((edge, i) => {
           const from = positions[edge.from];
           const to = positions[edge.to];
           if (!from || !to) return null;
+          if (directed) {
+            const dx = to.x - from.x;
+            const dy = to.y - from.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist === 0) return null;
+            const ex = to.x - (dx / dist) * 24;
+            const ey = to.y - (dy / dist) * 24;
+            return (
+              <line
+                key={i}
+                x1={from.x} y1={from.y}
+                x2={ex} y2={ey}
+                stroke="#d1d5db"
+                strokeWidth="2"
+                markerEnd="url(#arrowGray)"
+              />
+            );
+          }
           return (
             <line
               key={i}
